@@ -27,7 +27,7 @@ abstract class Organization {
     // your code here
     const hiredPosition: Position | undefined = this.root.findPosition(title);
     if (hiredPosition) {
-      hiredPosition.setEmployee(new Employee( this.nextIdentifier, person));
+      hiredPosition.setEmployee(new Employee(this.nextIdentifier, person));
       this.nextIdentifier++;
     }
 
