@@ -27,14 +27,11 @@ abstract class Organization {
     // your code here
     const hiredPosition: Position | undefined = this.root.findPosition(title);
     if (hiredPosition) {
-      // console.warn('FOUND ', title)
       hiredPosition.setEmployee(new Employee( this.nextIdentifier, person));
       this.nextIdentifier++;
-      return hiredPosition
     }
 
-    console.warn('%% DID NOT FIND ', title)
-    return undefined
+    return hiredPosition
   }
 
   toString = () => this.printOrganization(this.root, '');

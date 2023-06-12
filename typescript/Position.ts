@@ -23,7 +23,6 @@ class Position {
 
   removePosition = (position): boolean => this.directReports.delete(position);
 
-  // MAYBE FIX THIS?  To use Set?
   getDirectReports = (): Position[] => {
     const reports: Position[] = [];
     this.directReports.forEach(position => reports.push(position));
@@ -42,9 +41,7 @@ class Position {
       }
 
       if (immediateReport.getTitle() === soughtTitle) {
-        // console.log(immediateReport.getTitle(), " !!YES!! ",title )
         foundPosition = immediateReport;
-        // break; // redundant?
       } else {
         foundPosition = immediateReport.findPosition(soughtTitle);
       }
