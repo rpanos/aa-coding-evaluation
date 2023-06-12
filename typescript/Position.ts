@@ -3,7 +3,8 @@ import Employee from './Employee';
 class Position {
   private directReports: Set<Position> = new Set<Position>();
 
-  constructor(private title: string, private employee?: Employee) { }
+  constructor(private title: string, private employee?: Employee) { 
+  }
 
   isFilled = (): boolean => !!this.employee;
 
@@ -22,11 +23,35 @@ class Position {
 
   removePosition = (position): boolean => this.directReports.delete(position);
 
+  // MAYBE FIX THIS?  To use Set?
   getDirectReports = (): Position[] => {
     const reports: Position[] = [];
     this.directReports.forEach(position => reports.push(position));
     return reports;
   };
+
+  findPosition = (soughtTitle: string): Position | undefined => {
+    let foundPosition: Position | undefined
+    if (this.title == soughtTitle) {
+      return this;
+    }
+
+    for(let immediateReport of Array.from(this.directReports.values())){
+      if (foundPosition) {
+        break;
+      }
+
+      if (immediateReport.getTitle() === soughtTitle) {
+        // console.log(immediateReport.getTitle(), " !!YES!! ",title )
+        foundPosition = immediateReport;
+        // break; // redundant?
+      } else {
+        foundPosition = immediateReport.findPosition(soughtTitle);
+      }
+    }
+
+    return foundPosition;
+  }
 
   toString = () => {
     const employee = this.employee ? `: ${this.employee}` : '';

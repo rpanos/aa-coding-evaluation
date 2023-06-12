@@ -1,11 +1,14 @@
 import Position from './Position';
 import Name from './Name';
+import Employee from './Employee';
 
 abstract class Organization {
   private root: Position;
+  private nextIdentifier: number;
 
-  constructor() {
+  constructor(firstIdentifier?: number) {
     this.root = this.createOrganization();
+    this.nextIdentifier = firstIdentifier ? firstIdentifier : 1001
   }
 
   protected abstract createOrganization(): Position;
@@ -22,6 +25,15 @@ abstract class Organization {
   // Return the newly filled position or undefined if no position has that title
   hire(person: Name, title: string): Position | undefined {
     // your code here
+    const hiredPosition: Position | undefined = this.root.findPosition(title);
+    if (hiredPosition) {
+      // console.warn('FOUND ', title)
+      hiredPosition.setEmployee(new Employee( this.nextIdentifier, person));
+      this.nextIdentifier++;
+      return hiredPosition
+    }
+
+    console.warn('%% DID NOT FIND ', title)
     return undefined
   }
 
