@@ -3,8 +3,7 @@ import Employee from './Employee';
 class Position {
   private directReports: Set<Position> = new Set<Position>();
 
-  constructor(private title: string, private employee?: Employee) { 
-  }
+  constructor(private title: string, private employee?: Employee) { }
 
   isFilled = (): boolean => !!this.employee;
 
